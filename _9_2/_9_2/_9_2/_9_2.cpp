@@ -15,6 +15,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -55,113 +56,49 @@ public:
 		sec = time[2];
 	}
 
-	/*¬ычисление разности между двум€ моментами в секундах (2)*/
-	int operator -(Time obj) {
-		return ToSec() - obj.ToSec();
+	/*¬ычисление разности между двум€ моментами в секундах*/
+	int operator -(Time time2) {
+		return ToSec() - time2.ToSec();
 	}
 
 	/*¬ычитание из времени заданного количества секунд*/
 	void operator -(int s) {
-		this->sec -= s;
-		while (this->sec < 0) {
-			this->min--;
-			this->sec += 60;
-		}
-
-		while (this->min < 0) {
-			this->hour--;
-			this->min += 60;
-		}
-
-		while (this->hour < 0) {
-			this->hour++;
-		}
+		Time interm(ToSec() - s);
+		this->hour = interm.hour;
+		this->min = interm.min;
+		this->sec = interm.sec;
 	}
 
 	/*—равнение двух моментов времени (равны?)*/
-	bool operator ==(Time obj) {
-		if (this->hour == obj.hour) {
-			if (this->min == obj.min) {
-				if (this->sec == obj.sec)
-					return true;
-				else
-					return false;
-			}
-			else return false;
-		}
-		else return false;
+	bool operator ==(Time time2) {
+		return (this->hour == time2.hour) && (this->min == time2.min) && (this->sec == time2.sec);
 	}
 
 	/*—равнение двух моментов времени (не равны?)*/
-	bool operator !=(Time obj) {
-		if (this->hour == obj.hour) {
-			if (this->min == obj.min) {
-				if (this->sec == obj.sec)
-					return false;
-				else
-					return true;
-			}
-			else return true;
-		}
-		else return true;
+	bool operator !=(Time time2) {
+		return !(this->hour == time2.hour) && (this->min == time2.min) && (this->sec == time2.sec);
 	}
 
 	/*—равнение двух моментов времени (меньше?)*/
-	bool operator <(Time obj) {
-		if (this->hour == obj.hour) {
-			if (this->min == obj.min) {
-				if (this->sec == obj.sec) {
-					return false;
-				}
-				else {
-					if (this->sec > obj.sec) {
-						return false;
-					}
-					return true;
-				}
-			}
-			else {
-				if (this->min > obj.min) {
-					return false;
-				}
-				return true;
-			}
-		}
-		else {
-			if (this->hour > obj.hour) {
-				return false;
-			}
-			return true;
-		}
+	bool operator <(Time time2) {
+		if (this -> hour < time2.hour) return true;
+		else if (this->hour > time2.hour) return false;
+
+		if (this->min < time2.min) return true;
+		else if (this->min > time2.min) return false;
+
+		return (this->sec < time2.sec);
 	}
 
 	/*—равнение двух моментов времени (больше??)*/
-	bool operator >(Time obj) {
-		if (this->hour == obj.hour) {
-			if (this->min == obj.min) {
-				if (this->sec == obj.sec) {
-					return false;
-				}
-				else {
-					if (this->sec < obj.sec) {
-						return false;
-					}
-					return true;
-				}
-			}
-			else {
-				if (this->min < obj.min) {
-					return false;
-				}
-				return true;
-			}
-		}
-		else {
-			if (this->hour < obj.hour) {
-				return false;
-			}
-			return true;
-		}
+	bool operator >(Time time2) {
+		if (this->hour > time2.hour) return true;
+		else if (this->hour < time2.hour) return false;
+
+		if (this->min > time2.min) return true;
+		else if (this->min < time2.min) return false;
+
+		return (this->sec > time2.sec);
 	}
 
 
@@ -174,11 +111,17 @@ public:
 	/*ѕеревод числа в минуты*/
 	int ToMin()
 	{
-		return (hour * 60 + min);
+		return (hour * 60 + min) + round(sec/60.0);
+	}
+
+	string ToString(int h, int m, int s) {
+		ostringstream oss;
+		oss << h << ":" << m << ":" << s << endl;
+		return oss.str();
 	}
 
 	void Display() {
-		cout << hour << ":" << min << ":" << sec << endl;
+		cout << ToString(hour,min,sec);
 	}
 
 };
@@ -310,6 +253,7 @@ void Task() {
 	}
 }
 
+/*‘ункци€ продолжени€ действий*/
 bool Answ() {
 	int answ;
 	cout << "------------" << endl;
