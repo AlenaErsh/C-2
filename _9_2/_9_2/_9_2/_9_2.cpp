@@ -16,115 +16,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Time.h"
 
 using namespace std;
 
-class Time {
-
-	int hour, min, sec;
-
-public:
-
-	Time(int h, int m, int s) {
-		hour = h;
-		min = m;
-		sec = s;
-	}
-
-	Time(int s) {
-		hour = s / 3600;
-		min = (s - hour * 3600) / 60;
-		sec = s - hour * 3600 - min * 60;
-	}
-
-	Time(const const char *str) {
-		string a;
-		int n = 0, time[3];
-		for (int i = 0; i < (strlen(str) + 1); i++) {
-			if (str[i] != ':') {
-				a += str[i];
-			}
-			else {
-				time[n] = atoi(a.c_str());
-				n++;
-				a = "";
-			}
-
-		}
-		hour = time[0];
-		min = time[1];
-		sec = time[2];
-	}
-
-	/*Вычисление разности между двумя моментами в секундах*/
-	int operator -(Time time2) {
-		return ToSec() - time2.ToSec();
-	}
-
-	/*Вычитание из времени заданного количества секунд*/
-	void operator -(int s) {
-		Time interm(ToSec() - s);
-		this->hour = interm.hour;
-		this->min = interm.min;
-		this->sec = interm.sec;
-	}
-
-	/*Сравнение двух моментов времени (равны?)*/
-	bool operator ==(Time time2) {
-		return (this->hour == time2.hour) && (this->min == time2.min) && (this->sec == time2.sec);
-	}
-
-	/*Сравнение двух моментов времени (не равны?)*/
-	bool operator !=(Time time2) {
-		return !(this->hour == time2.hour) && (this->min == time2.min) && (this->sec == time2.sec);
-	}
-
-	/*Сравнение двух моментов времени (меньше?)*/
-	bool operator <(Time time2) {
-		if (this -> hour < time2.hour) return true;
-		else if (this->hour > time2.hour) return false;
-
-		if (this->min < time2.min) return true;
-		else if (this->min > time2.min) return false;
-
-		return (this->sec < time2.sec);
-	}
-
-	/*Сравнение двух моментов времени (больше??)*/
-	bool operator >(Time time2) {
-		if (this->hour > time2.hour) return true;
-		else if (this->hour < time2.hour) return false;
-
-		if (this->min > time2.min) return true;
-		else if (this->min < time2.min) return false;
-
-		return (this->sec > time2.sec);
-	}
-
-
-	/*Перевод числа в секунды*/
-	int ToSec()
-	{
-		return (hour * 3600 + min * 60 + sec);
-	}
-
-	/*Перевод числа в минуты*/
-	int ToMin()
-	{
-		return (hour * 60 + min) + round(sec/60.0);
-	}
-
-	string ToString(int h, int m, int s) {
-		ostringstream oss;
-		oss << h << ":" << m << ":" << s << endl;
-		return oss.str();
-	}
-
-	void Display() {
-		cout << ToString(hour,min,sec);
-	}
-
-};
 
 /*Функция ввода времени*/
 Time Init() {
@@ -149,7 +44,7 @@ Time Init() {
 		cin >> s;
 		Time Ob(s);
 		return Ob;
-		break;
+		break; 
 	}
 	case 3: {
 		char str[80];
