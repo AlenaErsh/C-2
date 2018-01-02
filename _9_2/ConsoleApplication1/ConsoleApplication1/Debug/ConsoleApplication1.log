@@ -1,5 +1,0 @@
-﻿  ConsoleApplication1.cpp
-c:\users\алёна\desktop\алёне\учеба\2 курс\1 семестр\c++\2\_9_2\consoleapplication1\consoleapplication1\consoleapplication1.cpp(39): warning C4114: множественное использование одного и того же квалификатора типа
-c:\users\алёна\desktop\алёне\учеба\2 курс\1 семестр\c++\2\_9_2\consoleapplication1\consoleapplication1\consoleapplication1.cpp(42): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\алёна\desktop\алёне\учеба\2 курс\1 семестр\c++\2\_9_2\consoleapplication1\consoleapplication1\consoleapplication1.cpp(234): warning C4715: Init: значение возвращается не при всех путях выполнения
-LINK : fatal error LNK1168: не удается открыть C:\Users\Алёна\Desktop\Алёне\учеба\2 курс\1 семестр\C++\2\_9_2\ConsoleApplication1\Debug\ConsoleApplication1.exe для записи
